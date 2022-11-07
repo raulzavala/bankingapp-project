@@ -1,25 +1,45 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import Menu from "./Components/menu";
+import Home from "./Components/home";
+import CreateAccount from "./Components/createaccount";
+import Deposit from "./Components/deposit";
+import Withdraw from "./Components/withdraw";
+import Balance from "./Components/balance";
+import AllData from "./Components/alldata";
+import Main from "./Components/main";
+import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
+import React from "react";
 
-function App() {
+export const UserContext = React.createContext();
+
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <UserContext.Provider
+        value={{
+          users: [
+            {
+              name: "Raul Zavala",
+              email: "iscraulzavala@gmail.com",
+              password: "secret",
+              balance: 50,
+              transactions: [{transactionType:"Deposit",amount:"20"}]
+            },
+          ],
+        }}
+      >
+        <Routes>
+          <Route path="/" element={<Main />} />
+          <Route path="/home" element={<Home />} exact />
+          <Route exact path="/createaccount/" element={<CreateAccount />} />
+          <Route exact path="/deposit/" element={<Deposit />} />
+          <Route exact path="/withdraw/" element={<Withdraw />} />
+          <Route exact path="/balance/" element={<Balance />} />
+          <Route exact path="/alldata/" element={<AllData />} />
+        </Routes>
+      </UserContext.Provider>
+    </BrowserRouter>
   );
-}
+};
 
 export default App;

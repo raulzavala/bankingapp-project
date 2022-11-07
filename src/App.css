@@ -1,31 +1,88 @@
-.App {
-  text-align: center;
+.card {
+  margin-top: 20px;
+  margin-left: 100px;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.img-fluid{
+   height: 200px;
+   width: 200px;
+}
+
+.me-auto{
+  font-size:1.1em;
+}
+
+a.nav-link{
+  color:white;
+  padding:10px;
+}
+
+div.me-auto.navbar-nav .active{
+    background-color: green;
+    border: 2px solid white;
+    border-radius: 6px;
+    margin-right: 10px;
+}
+
+a.navbar-brand{
+  border: 2px solid white;
+  background-color: green;
+  padding:8px;
+  margin-right: 10px;
+}
+
+a.nav-link:hover{
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.me-2.form-control:hover{
+  border: 2px solid green;
+}
+
+.btn.btn-outline-success{
+  background-color: green;
+  color: white;
+}
+
+.btn.btn-outline-success:hover{
+  background-color: white;
+  color: black;
+}
+
+div.card-body{
+    background-color: white;
+    font-style: normal;
+    color: black;
+}
+
+html body div#root div.card.mb-3.bg-primary.text-white {
+  border: 1px solid #B9B9B9;
+}
+
+html body div#root div.card.mb-3.bg-primary.text-white div.card-header{
+  background-color: #F7F7F7;
+  color:black;
+}
+
+html body div#root div.card.mb-3.bg-primary.text-white div.card-body form button.btn.btn-primary  {
+  background-color: green;
+  border: 1px solid green;
+}
+
+html body div#root div.card.mb-3.bg-primary.text-white div.card-body button.btn.btn-primary{
+  background-color: green;
+  border: 1px solid green;
+}
+
+html body div#root div.card.mb-3.bg-primary.text-white div#balance {
+  height: 170px;
 }
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
   }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
 }
 
 @keyframes App-logo-spin {
@@ -35,4 +92,14 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.login{
+  margin-left:450px; 
+  margin-right:450px; 
+  margin-top:100px;
+}
+
+.login .boton_sign{
+  margin-top:10px;
 }

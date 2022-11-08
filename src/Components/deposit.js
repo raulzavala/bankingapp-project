@@ -3,6 +3,7 @@ import Form from "react-bootstrap/Form";
 import Card from "./context";
 import React from "react";
 import { UserContext } from "../App";
+import Menu from "./menu";
 
 const Deposit = () => {
   const [amount, setAmount] = React.useState(0);
@@ -50,6 +51,7 @@ const Deposit = () => {
 
   return (
     <>
+      <Menu />  
       <Card
         bgcolor="primary"
         id="account"

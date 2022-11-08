@@ -1,9 +1,9 @@
 import React from "react";
 import { UserContext } from "../App";
 import Card from "./context";
+import Menu from "./menu";
 
-const Balance = () =>{
-
+const Balance = () => {
   const ctx = React.useContext(UserContext);
   const [index, setIndex] = React.useState(0);
   const [total, setTotal] = React.useState(ctx.users[0].balance);
@@ -17,26 +17,26 @@ const Balance = () =>{
     e.preventDefault();
   };
 
-
   return (
     <>
+      <Menu />  
       <Card
-          bgcolor="primary"
-          id="account"
-          title="Account"
-          body={
-            <div id="balanceAccount">
-              <select onChange={(e) => handleTotal(e.target.value, e)}>
-                {ctx.users.map((item, j) => (
-                  <option value={j} onClick={(e) => handleSelect(j, e)} key={j}>
-                    {item.name}
-                  </option>
-                ))}
-              </select>
-            </div>
-          }
-        />
-        <Card
+        bgcolor="primary"
+        id="account"
+        title="Account"
+        body={
+          <div id="balanceAccount">
+            <select onChange={(e) => handleTotal(e.target.value, e)}>
+              {ctx.users.map((item, j) => (
+                <option value={j} onClick={(e) => handleSelect(j, e)} key={j}>
+                  {item.name}
+                </option>
+              ))}
+            </select>
+          </div>
+        }
+      />
+      <Card
         bgcolor="primary"
         id="balance"
         title="Current Balance"
@@ -47,7 +47,7 @@ const Balance = () =>{
         }
       />
     </>
-  )
-}
+  );
+};
 
 export default Balance;

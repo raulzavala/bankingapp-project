@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import {Link, Routes, Route, useNavigate} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
+import { UserContext } from "../App";
 
 async function loginUser(credentials) {
     const {username} = credentials;
@@ -16,6 +17,7 @@ export default function Login() {
   const [username, setUserName] = useState();
   const [password, setPassword] = useState();
   const navigate = useNavigate();
+  const ctx = React.useContext(UserContext);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -23,11 +25,10 @@ export default function Login() {
       username,
       password,
     });
-    console.log(token);
 
-    const {email} = token;
-    if(email!=""){
+    if(token!=""){
         navigate('/home');
+        ctx.users[0]=token;
     }
   };
 

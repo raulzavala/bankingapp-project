@@ -2,16 +2,17 @@ import React from "react";
 import { Navbar, Container, Form, Button, Nav} from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import { Bank } from "react-bootstrap-icons";
-import { useLocation, Link } from "react-router-dom";
-import App from "../App";
-import CreateAccount from "./createaccount";
+import { useLocation } from "react-router-dom";
+import { UserContext } from "../App";
 
 const Menu = () => {
   const location = useLocation();
+  const ctx = React.useContext(UserContext);
+
   return (
     <Navbar bg="primary" variant="dark">
       <Container>
-      <LinkContainer to="/">
+      <LinkContainer to="/home">
         <Navbar.Brand>
           <Bank width="30" height="30" title="BadBank logo" id="logo" />
         </Navbar.Brand>
@@ -61,19 +62,16 @@ const Menu = () => {
           </Nav.Link>
           </LinkContainer>
 
+          <LinkContainer to="/">
+          <Nav.Link title="Log out">
+            Log out
+          </Nav.Link>
+          </LinkContainer>
+
         </Nav>
-        <Form className="d-flex">
-          <Form.Control
-            type="search"
-            placeholder="Search"
-            className="me-2"
-            aria-label="Search"
-            title="Search something..."
-          />
-          <Button variant="outline-success" title="Show me results">
-            Search
-          </Button>
-        </Form>
+        <label className="logged">
+          Logged as {ctx.users[0].name}
+       </label>
       </Container>
     </Navbar>
   );

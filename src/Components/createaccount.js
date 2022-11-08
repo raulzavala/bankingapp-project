@@ -2,7 +2,29 @@ import React from "react";
 import Card from "./context";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import {UserContext} from "../App";
+import { UserContext } from "../App";
+import Menu from "./menu";
+
+function createUser(credentials) {
+  const { name } = credentials;
+  const { email } = credentials;
+  const { password } = credentials;
+  return fetch(
+    "http://localhost:3002/account/create/" +
+      `${name}` +
+      "/" +
+      `${email}` +
+      "/" +
+      `${password}`,
+    {
+      method: "GET",
+    }
+  )
+    .then((data) => data.json())
+    .then((responseJSON) => {
+      console.log(responseJSON);
+    });
+}
 
 const CreateAccount = () => {
   const [show, setShow] = React.useState(true);
@@ -10,7 +32,7 @@ const CreateAccount = () => {
   const [name, setName] = React.useState("");
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
-  const ctx = React.useContext(UserContext)
+  const ctx = React.useContext(UserContext);
 
   const fieldsCheck = () => {
     if (name !== "" && email !== "" && password !== "") {
@@ -29,13 +51,19 @@ const CreateAccount = () => {
     return true;
   };
 
-  const handleCreate = (e) => {
+  const handleCreate = async (e) => {
     console.log(name, email, password);
     if (!validate(name, "name")) return;
     if (!validate(email, "email")) return;
     if (!validate(password, "password")) return;
-    ctx.users.push({ name, email, password, balance: 100, transactions:[] });
-    console.log(ctx);
+
+    const user = createUser({
+      name,
+      email,
+      password,
+    });
+
+    ctx.users.push({ name, email, password, balance: 0, transactions: [] });
     setShow(false);
     e.preventDefault();
   };
@@ -49,6 +77,7 @@ const CreateAccount = () => {
 
   return (
     <>
+      <Menu />
       <Card
         bgcolor="primary"
         header="User Account"

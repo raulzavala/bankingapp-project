@@ -26,9 +26,11 @@ export default function Login() {
       password,
     });
 
-    if(token!=""){
+    const {email} = token;
+    if(email!=""){
         navigate('/home');
         ctx.users[0]=token;
+        console.log(ctx.users[0])
     }
   };
 

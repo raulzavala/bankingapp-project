@@ -5,18 +5,45 @@ import React from "react";
 import { UserContext } from "../App";
 import Menu from "./menu";
 
+async function makeWithdraws(credentials) {
+  const { value } = credentials;
+  const { email } = credentials;
+  return fetch(
+    "http://localhost:3002/account/update/" +
+      `${email}` +
+      "/" +
+      `${value}` +
+      "/Withdraw",
+    {
+      method: "GET",
+    }
+  )
+    .then((data) => console.log(data.json()))
+    .then((responseJSON) => {
+      console.log(responseJSON);
+    });
+}
+
 const Withdraw = () => {
   const [amount, setAmount] = React.useState(0);
   const userctx = React.useContext(UserContext);
   const [total, setTotal] = React.useState(userctx.users[0].balance);
   const [index, setIndex] = React.useState(0);
 
-  const makeWithdraw = (value, e) => {
+  const makeWithdraw = async (value, e) => {
     let Ntotal = 0;
     if (amount > total) {
       window.alert("Withdraw overdraft");
     } else {
       Ntotal = parseFloat(total) - parseFloat(value);
+      e.preventDefault();
+      console.log(userctx);
+
+      const email = userctx.users[index].email;
+      const withdraw = await makeWithdraws({
+        email,
+        value,
+      });
       setTotal(Ntotal);
       userctx.users[index].balance = Ntotal;
       userctx.users[index].transactions.push({
@@ -27,7 +54,6 @@ const Withdraw = () => {
       setAmount("");
       window.alert("Withdraw was processed");
     }
-    e.preventDefault();
   };
 
   const handleTotal = (value, e) => {

@@ -77,7 +77,7 @@ app.get('/account/findOne/:email', function (req, res) {
 
 
 // update - deposit/withdraw amount
-app.get('/account/update/:email/:amount/:type', function (req, res) {
+app.get('/account/update/:email/:amount/:type/', function (req, res) {
     var amount = Number(req.params.amount);
     dal.update(req.params.email, amount, req.params.type).
         then((response) => {
@@ -96,5 +96,5 @@ app.get('/account/all', function (req, res) {
     });
 });
 
-app.listen(3003);
+app.listen(3002);
 console.log('Running on port: ' + process.env.BACKEND_URL);

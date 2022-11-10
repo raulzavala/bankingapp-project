@@ -20,7 +20,7 @@ function create(name, email, password) {
       email,
       password,
       balance: 0,
-      transactions: [{transactionType:"Deposit",amount:"0"}]
+      transactions: [{ transactionType: "Deposit", amount: "0" }],
     };
     collection.insertOne(doc, { w: 1 }, function (err, result) {
       err ? reject(err) : resolve(doc);
@@ -53,23 +53,59 @@ function findOne(email) {
 
 // update - deposit/withdraw amount
 function update(email, amount, transaction) {
-  return new Promise((resolve, reject) => {
-   // const txnType = {transactionType: transaction}
-  //  const amountT = {amount: amount}
-    const customers = db
-      .collection("users")
-      .findOneAndUpdate(
+  if (transaction == "Deposit") {
+    return new Promise((resolve, reject) => {
+      // Add Operation
+      db.collection("users").findOneAndUpdate(
         { email: email },
-       // { $inc: { balance: amount } },
-        //{ $push: {transactions: txnType }},
-        {$push: {friends: {firstName: "Harry", lastName: "Potter"}}},
+        {
+          $push: {
+            transactions: { transactionType: transaction, amount: amount },
+          },
+        },
         { returnOriginal: false },
-
         function (err, documents) {
           err ? reject(err) : resolve(documents);
         }
       );
-  });
+
+      //Increment
+      db.collection("users").findOneAndUpdate(
+        { email: email },
+        { $inc: { balance: amount } },
+        { returnOriginal: false },
+        function (err, documents) {
+          err ? reject(err) : resolve(documents);
+        }
+      );
+    });
+  } else {
+    return new Promise((resolve, reject) => {
+      // Add Operation
+      db.collection("users").findOneAndUpdate(
+        { email: email },
+        {
+          $push: {
+            transactions: { transactionType: transaction, amount: amount },
+          },
+        },
+        { returnOriginal: false },
+        function (err, documents) {
+          err ? reject(err) : resolve(documents);
+        }
+      );
+
+      //Decrement
+      db.collection("users").findOneAndUpdate(
+        { email: email },
+        { $inc: { balance: -amount } },
+        { returnOriginal: false },
+        function (err, documents) {
+          err ? reject(err) : resolve(documents);
+        }
+      );
+    });
+  }
 }
 
 // return all users by using the collection.find method

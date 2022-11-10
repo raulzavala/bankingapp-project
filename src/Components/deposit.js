@@ -5,21 +5,48 @@ import React from "react";
 import { UserContext } from "../App";
 import Menu from "./menu";
 
+async function makeDeposits(credentials) {
+  const { value } = credentials;
+  const { email } = credentials;
+  return fetch(
+    "http://localhost:3002/account/update/" +
+      `${email}` +
+      "/" +
+      `${value}` +
+      "/Deposit",
+    {
+      method: "GET",
+    }
+  )
+    .then((data) => console.log(data.json()))
+    .then((responseJSON) => {
+      console.log(responseJSON);
+    });
+}
+
 const Deposit = () => {
   const [amount, setAmount] = React.useState(0);
   const userctx = React.useContext(UserContext);
   const [index, setIndex] = React.useState(0);
   const [total, setTotal] = React.useState(userctx.users[0].balance);
 
-  const makeDeposit = (value, e) => {
+  const makeDeposit = async (value, e) => {
     let Ntotal = parseFloat(value) + parseFloat(total);
     setTotal(Ntotal);
+    e.preventDefault();
+    console.log(userctx);
+
+    const email = userctx.users[index].email;
+    const deposit = await makeDeposits({
+      email,
+      value,
+    });
+
     userctx.users[index].balance = Ntotal;
     userctx.users[index].transactions.push({transactionType:"Deposit",amount:value});
     console.log(userctx);
     window.alert("Deposit was received");
     setAmount("");
-    e.preventDefault();
   };
 
   const handleTotal = (value, e) => {

@@ -1,5 +1,4 @@
 import "./App.css";
-import Menu from "./Components/menu";
 import Home from "./Components/home";
 import CreateAccount from "./Components/createaccount";
 import Deposit from "./Components/deposit";
@@ -7,7 +6,7 @@ import Withdraw from "./Components/withdraw";
 import Balance from "./Components/balance";
 import AllData from "./Components/alldata";
 import Main from "./Components/main";
-import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import React from "react";
 
 export const UserContext = React.createContext();

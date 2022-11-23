@@ -7,9 +7,7 @@ import Menu from "./menu";
 
 function createUser(credentials) {
   const API = "https://backend-bankingapp.herokuapp.com";
-  const { name } = credentials;
-  const { email } = credentials;
-  const { password } = credentials;
+  const { name, email, password } = credentials;
   return fetch(
     `${API}/account/create/` +
       `${name}` +
@@ -19,14 +17,14 @@ function createUser(credentials) {
       `${password}`,
     {
       method: "GET",
-
     }
   )
     .then((data) => {
       console.log(data);
-      data.json();})
-    .then((responseJSON) => {
-      console.log(responseJSON);
+      data.json();
+    })
+    .catch((e) => {
+      alert('Email already registered')
     });
 }
 
@@ -67,9 +65,11 @@ const CreateAccount = () => {
       password,
     });
 
+    if(user!=null){
     ctx.users.push({ name, email, password, balance: 0, transactions: [] });
     setShow(false);
     e.preventDefault();
+    }
   };
 
   const clearForm = (e) => {

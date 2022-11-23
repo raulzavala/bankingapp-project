@@ -7,8 +7,7 @@ import Menu from "./menu";
 
 async function makeDeposits(credentials) {
   const API = "https://backend-bankingapp.herokuapp.com";
-  const { value } = credentials;
-  const { email } = credentials;
+  const { value, email } = credentials;
   return fetch(
     `${API}/account/update/` + `${email}` + "/" + `${value}` + "/Deposit",
     {
@@ -16,8 +15,8 @@ async function makeDeposits(credentials) {
     }
   )
     .then((data) => console.log(data.json()))
-    .then((responseJSON) => {
-      console.log(responseJSON);
+    .catch((e) => {
+      alert("Error doing deposit");
     });
 }
 
@@ -39,14 +38,16 @@ const Deposit = () => {
       value,
     });
 
-    userctx.users[index].balance = Ntotal;
-    userctx.users[index].transactions.push({
-      transactionType: "Deposit",
-      amount: value,
-    });
-    console.log(userctx);
-    window.alert("Deposit was received");
-    setAmount("");
+    if (deposit != null) {
+      userctx.users[index].balance = Ntotal;
+      userctx.users[index].transactions.push({
+        transactionType: "Deposit",
+        amount: value,
+      });
+      console.log(userctx);
+      window.alert("Deposit was received");
+      setAmount("");
+    }
   };
 
   const handleTotal = (value, e) => {

@@ -7,9 +7,7 @@ import { UserContext } from "../App";
 
 function createUser(credentials) {
   const API = "https://backend-bankingapp.herokuapp.com";
-  const { name } = credentials;
-  const { email } = credentials;
-  const { password } = credentials;
+  const { name, email, password } = credentials;
   return fetch(
     `${API}/account/create/` +
       `${name}` +
@@ -22,8 +20,8 @@ function createUser(credentials) {
     }
   )
     .then((data) => data.json())
-    .then((responseJSON) => {
-      console.log(responseJSON);
+    .catch((e) => {
+      alert("Email already registered");
     });
 }
 
@@ -63,14 +61,12 @@ function Register() {
       email,
       password,
     });
-
-    ctx.users.push({ name, email, password, balance: 0, transactions: [] });
-    setShow(false);
-    e.preventDefault();
-
     if (user != null) {
+      ctx.users.push({ name, email, password, balance: 0, transactions: [] });
+      setShow(false);
       window.alert("User was created");
     }
+    e.preventDefault();
     clearForm(e);
   };
 

@@ -6,40 +6,21 @@ import { UserContext } from "../App";
 import { initializeApp } from "firebase/app";
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 
-function createUser(credentials) {
-  const API = 'https://backend-bankingapp.herokuapp.com';
-  const { name } = credentials;
-  const { email } = credentials;
-  const { password } = credentials;
-  return fetch(
-    `${API}/account/create/` +
-      `${name}` +
-      "/" +
-      `${email}` +
-      "/" +
-      `${password}`,
-    {
-      method: "GET",
-    }
-  )
+async function loginUser(credentials) {
+  const API = "https://backend-bankingapp.herokuapp.com";
+  const { username, password } = credentials;
+  return fetch(`${API}/account/login/` + `${username}` + "/" + `${password}`, {
+    method: "GET",
+  })
     .then((data) => data.json())
-    .then((responseJSON) => {
-      console.log(responseJSON);
+    .catch((e) => {
+      alert("User not registered");
     });
 }
 
-async function loginUser(credentials) {
-  const API = 'https://backend-bankingapp.herokuapp.com';
-  const { username } = credentials;
-  const { password } = credentials;
-  return fetch(`${API}/account/login/` + `${username}` + "/" + `${password}`, {
-    method: "GET",
-  }).then((data) => data.json());
-}
-
 async function findUser(email) {
-  const API = 'https://backend-bankingapp.herokuapp.com';
-  console.log(`${API}/account/findOne/`)
+  const API = "https://backend-bankingapp.herokuapp.com";
+  console.log(`${API}/account/findOne/`);
   return fetch(`${API}/account/findOne/` + `${email}`, {
     method: "GET",
   }).then((data) => data.json());
@@ -109,11 +90,13 @@ export default function Login() {
       password,
     });
 
-    const { email } = token;
-    if (email != "") {
-      navigate("/home");
-      ctx.users[0] = token;
-      console.log(ctx.users[0]);
+    if (token != null) {
+      const { email } = token;
+      if (email != "") {
+        navigate("/home");
+        ctx.users[0] = token;
+        console.log(ctx.users[0]);
+      }
     }
   };
 

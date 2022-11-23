@@ -7,8 +7,7 @@ import Menu from "./menu";
 
 async function makeWithdraws(credentials) {
   const API = "https://backend-bankingapp.herokuapp.com";
-  const { value } = credentials;
-  const { email } = credentials;
+  const { value, email } = credentials;
   return fetch(
     `${API}/account/update/` + `${email}` + "/" + `${value}` + "/Withdraw",
     {
@@ -16,8 +15,8 @@ async function makeWithdraws(credentials) {
     }
   )
     .then((data) => console.log(data.json()))
-    .then((responseJSON) => {
-      console.log(responseJSON);
+    .catch((e) => {
+      alert("Error doing withdraw");
     });
 }
 
@@ -41,15 +40,17 @@ const Withdraw = () => {
         email,
         value,
       });
-      setTotal(Ntotal);
-      userctx.users[index].balance = Ntotal;
-      userctx.users[index].transactions.push({
-        transactionType: "Withdraw",
-        amount: value,
-      });
-      console.log(userctx);
-      setAmount("");
-      window.alert("Withdraw was processed");
+      if (withdraw != null) {
+        setTotal(Ntotal);
+        userctx.users[index].balance = Ntotal;
+        userctx.users[index].transactions.push({
+          transactionType: "Withdraw",
+          amount: value,
+        });
+        console.log(userctx);
+        setAmount("");
+        window.alert("Withdraw was processed");
+      }
     }
   };
 

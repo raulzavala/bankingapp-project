@@ -11,7 +11,7 @@ function createUser(credentials) {
   const { email } = credentials;
   const { password } = credentials;
   return fetch(
-    F`${API}/account/create/` +
+    `${API}/account/create/` +
       `${name}` +
       "/" +
       `${email}` +

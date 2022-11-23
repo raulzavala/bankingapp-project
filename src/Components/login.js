@@ -29,6 +29,7 @@ function createUser(credentials) {
 }
 
 async function loginUser(credentials) {
+  const API = process.env.BACKEND;
   const { username } = credentials;
   const { password } = credentials;
   return fetch(`${API}/account/login/` + `${username}` + "/" + `${password}`, {
@@ -37,6 +38,7 @@ async function loginUser(credentials) {
 }
 
 async function findUser(email) {
+  const API = process.env.BACKEND;
   return fetch(`${API}/account/findOne/` + `${email}`, {
     method: "GET",
   }).then((data) => data.json());

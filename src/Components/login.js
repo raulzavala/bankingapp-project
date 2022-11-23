@@ -7,7 +7,7 @@ import { initializeApp } from "firebase/app";
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 
 function createUser(credentials) {
-  const API = process.env.BACKEND;
+  const API = 'https://backend-bankingapp.herokuapp.com';
   const { name } = credentials;
   const { email } = credentials;
   const { password } = credentials;
@@ -29,7 +29,7 @@ function createUser(credentials) {
 }
 
 async function loginUser(credentials) {
-  const API = process.env.BACKEND;
+  const API = 'https://backend-bankingapp.herokuapp.com';
   const { username } = credentials;
   const { password } = credentials;
   return fetch(`${API}/account/login/` + `${username}` + "/" + `${password}`, {
@@ -38,7 +38,8 @@ async function loginUser(credentials) {
 }
 
 async function findUser(email) {
-  const API = process.env.BACKEND;
+  const API = 'https://backend-bankingapp.herokuapp.com';
+  console.log(`${API}/account/findOne/`)
   return fetch(`${API}/account/findOne/` + `${email}`, {
     method: "GET",
   }).then((data) => data.json());

@@ -6,7 +6,7 @@ import { UserContext } from "../App";
 import Menu from "./menu";
 
 function createUser(credentials) {
-  const API = process.env.BACKEND;
+  const API = "https://backend-bankingapp.herokuapp.com";
   const { name } = credentials;
   const { email } = credentials;
   const { password } = credentials;
@@ -19,9 +19,12 @@ function createUser(credentials) {
       `${password}`,
     {
       method: "GET",
+
     }
   )
-    .then((data) => data.json())
+    .then((data) => {
+      console.log(data);
+      data.json();})
     .then((responseJSON) => {
       console.log(responseJSON);
     });

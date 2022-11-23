@@ -6,7 +6,7 @@ import React from "react";
 import { UserContext } from "../App";
 
 function createUser(credentials) {
-  const API = process.env.BACKEND;
+  const API = "https://backend-bankingapp.herokuapp.com";
   const { name } = credentials;
   const { email } = credentials;
   const { password } = credentials;

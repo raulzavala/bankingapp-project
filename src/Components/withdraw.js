@@ -6,7 +6,7 @@ import { UserContext } from "../App";
 import Menu from "./menu";
 
 async function makeWithdraws(credentials) {
-  const API = process.env.BACKEND;
+  const API = "https://backend-bankingapp.herokuapp.com";
   const { value } = credentials;
   const { email } = credentials;
   return fetch(

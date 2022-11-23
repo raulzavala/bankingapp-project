@@ -6,11 +6,12 @@ import React from "react";
 import { UserContext } from "../App";
 
 function createUser(credentials) {
+  const API = process.env.BACKEND;
   const { name } = credentials;
   const { email } = credentials;
   const { password } = credentials;
   return fetch(
-    "http://localhost:3002/account/create/" +
+    `${API}/account/create/` +
       `${name}` +
       "/" +
       `${email}` +
@@ -67,8 +68,8 @@ function Register() {
     setShow(false);
     e.preventDefault();
 
-    if(user!=null){
-        window.alert("User was created");
+    if (user != null) {
+      window.alert("User was created");
     }
     clearForm(e);
   };

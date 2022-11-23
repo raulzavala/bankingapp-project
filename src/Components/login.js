@@ -7,11 +7,12 @@ import { initializeApp } from "firebase/app";
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 
 function createUser(credentials) {
+  const API = process.env.BACKEND;
   const { name } = credentials;
   const { email } = credentials;
   const { password } = credentials;
   return fetch(
-    "http://localhost:3002/account/create/" +
+    `${API}/account/create/` +
       `${name}` +
       "/" +
       `${email}` +
@@ -30,27 +31,16 @@ function createUser(credentials) {
 async function loginUser(credentials) {
   const { username } = credentials;
   const { password } = credentials;
-  return fetch(
-    "http://localhost:3002/account/login/" +
-      `${username}` +
-      "/" +
-      `${password}`,
-    {
-      method: "GET",
-    }
-  ).then((data) => data.json());
+  return fetch(`${API}/account/login/` + `${username}` + "/" + `${password}`, {
+    method: "GET",
+  }).then((data) => data.json());
 }
 
 async function findUser(email) {
-  return fetch(
-    "http://localhost:3002/account/findOne/" +
-      `${email}`,
-    {
-      method: "GET",
-    }
-  ).then((data) => data.json());
+  return fetch(`${API}/account/findOne/` + `${email}`, {
+    method: "GET",
+  }).then((data) => data.json());
 }
-
 
 export default function Login() {
   const [username, setUserName] = useState();
@@ -91,10 +81,8 @@ export default function Login() {
             navigate("/home");
             ctx.users[0] = token;
             console.log(ctx.users[0]);
-          }else{
-
+          } else {
           }
-
         } else {
         }
         // ...

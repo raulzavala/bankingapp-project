@@ -10,11 +10,7 @@ async function makeWithdraws(credentials) {
   const { value } = credentials;
   const { email } = credentials;
   return fetch(
-    "http://localhost:3002/account/update/" +
-      `${email}` +
-      "/" +
-      `${value}` +
-      "/Withdraw",
+    `${API}/account/update/` + `${email}` + "/" + `${value}` + "/Withdraw",
     {
       method: "GET",
     }

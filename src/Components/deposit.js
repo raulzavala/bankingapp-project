@@ -6,14 +6,11 @@ import { UserContext } from "../App";
 import Menu from "./menu";
 
 async function makeDeposits(credentials) {
+  const API = process.env.BACKEND;
   const { value } = credentials;
   const { email } = credentials;
   return fetch(
-    "http://localhost:3002/account/update/" +
-      `${email}` +
-      "/" +
-      `${value}` +
-      "/Deposit",
+    `${API}/account/update/` + `${email}` + "/" + `${value}` + "/Deposit",
     {
       method: "GET",
     }
@@ -43,7 +40,10 @@ const Deposit = () => {
     });
 
     userctx.users[index].balance = Ntotal;
-    userctx.users[index].transactions.push({transactionType:"Deposit",amount:value});
+    userctx.users[index].transactions.push({
+      transactionType: "Deposit",
+      amount: value,
+    });
     console.log(userctx);
     window.alert("Deposit was received");
     setAmount("");
@@ -78,7 +78,7 @@ const Deposit = () => {
 
   return (
     <>
-      <Menu />  
+      <Menu />
       <Card
         bgcolor="primary"
         id="account"

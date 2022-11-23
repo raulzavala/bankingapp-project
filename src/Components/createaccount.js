@@ -6,11 +6,12 @@ import { UserContext } from "../App";
 import Menu from "./menu";
 
 function createUser(credentials) {
+  const API = process.env.BACKEND;
   const { name } = credentials;
   const { email } = credentials;
   const { password } = credentials;
   return fetch(
-    "http://localhost:3002/account/create/" +
+    F`${API}/account/create/` +
       `${name}` +
       "/" +
       `${email}` +
